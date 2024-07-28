@@ -247,6 +247,19 @@ async = ["asgiref (>=3.2)"]
 dotenv = ["python-dotenv"]
 
 [[package]]
+name = "flask-basicauth"
+version = "0.2.0"
+description = "HTTP basic access authentication for Flask."
+optional = false
+python-versions = "*"
+files = [
+    {file = "Flask-BasicAuth-0.2.0.tar.gz", hash = "sha256:df5ebd489dc0914c224419da059d991eb72988a01cdd4b956d52932ce7d501ff"},
+]
+
+[package.dependencies]
+Flask = "*"
+
+[[package]]
 name = "googletrans"
 version = "3.1.0a0"
 description = "Free Google Translate API for Python. Translates totally free of charge."
@@ -1430,4 +1443,4 @@ watchdog = ["watchdog (>=2.3)"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.12"
-content-hash = "e0d2ee64a484126c965511dea61db7bba2d0a19f5089a7470acc8207f284085d"
+content-hash = "0c5e0af0c339d9d047e0b720d4dc9105b7dee2e227f8ebb420fbb6b7e851cac1"

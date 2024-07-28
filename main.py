@@ -1,4 +1,5 @@
-from flask import Flask
+from flask import Flask, request, jsonify
+from flask_basicauth import BasicAuth
 
 from textblob import TextBlob
 from googletrans import Translator
@@ -18,6 +19,11 @@ modelo = get_model()
 
 app = Flask(__name__)
 
+app.config['BASIC_AUTH_USERNAME'] = 'leandro'
+app.config['BASIC_AUTH_PASSWORD'] = 'admin'
+
+basic_auth = BasicAuth(app)
+
 
 @app.route("/")
 def home():
@@ -33,8 +39,12 @@ def sentimento(frase):
     return f"<h2>Polaridade: {polaridade}</h2>"
 
 
-@app.route("/cotacao/<int:tamanho>")
-def cotacao(tamanho):
-    tamanho = np.array(tamanho).reshape(-1, 1)
-    preco = modelo.predict(tamanho)[0]
-    return f"{preco}"
+@app.route("/cotacao/", methods=["POST"])
+@basic_auth.required
+def cotacao():
+    dados = request.get_json()
+    colunas = ["tamanho", "ano", "garagem"]
+    input = [dados[col] for col in colunas]
+
+    preco = modelo.predict([input])
+    return jsonify(preco=preco[0])
